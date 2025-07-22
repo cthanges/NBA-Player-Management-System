@@ -23,5 +23,6 @@ FILE* openPlayerFile(const char* mode); //Open the player file
 void addPlayer();
 void displayPlayers();
 void searchPlayer();
+void updatePlayer();
 
 #endif
