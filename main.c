@@ -9,6 +9,7 @@ int main() {
         printf("\n---NBA PLAYERS---\n");
         printf("1. Add Player\n");
         printf("2. View Players\n");
+        printf("3. Search Player\n");
         printf("0. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
@@ -19,6 +20,9 @@ int main() {
                 break;
             case 2:
                 displayPlayers();
+                break;
+            case 3:
+                searchPlayer();
                 break;
             case 0:
                 exit(0);
