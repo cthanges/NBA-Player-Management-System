@@ -29,6 +29,9 @@ int main() {
             case 4:
                 updatePlayer();
                 break;
+            case 5:
+                deletePlayer();
+                break;
             case 0:
                 exit(0);
                 break;
