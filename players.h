@@ -24,5 +24,6 @@ void addPlayer();
 void displayPlayers();
 void searchPlayer();
 void updatePlayer();
+void deletePlayer();
 
 #endif
