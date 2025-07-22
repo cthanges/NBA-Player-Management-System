@@ -19,10 +19,11 @@ FILE* openPlayerFile(const char* mode){
 //Adding a new player
 void addPlayer(){
     Player player;
+
     FILE* fp = openPlayerFile("a");
 
     if(fp == NULL){
-        printf("Could not add player...\n");
+        printf("Unable to add player...\n");
         return;
     }
 
@@ -78,10 +79,11 @@ void addPlayer(){
 //Displaying all players from the file
 void displayPlayers(){
     Player player;
+
     FILE* fp = openPlayerFile("r");
 
     if (fp == NULL){
-        printf("Could not display players...\n");
+        printf("Unable to display players...\n");
         return; 
     }
 
@@ -94,6 +96,48 @@ void displayPlayers(){
         printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
                player.name, player.age, player.season, player.team, player.jerseyNumber,
                player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
+    }
+
+    fclose(fp);
+}
+
+void searchPlayer(){
+    char searchName[50];
+    char line[256]; //length can vary ex. Shai Gilgeous-Alexander has a lot of characters just for name
+    Player player;
+
+    FILE* fp = openPlayerFile("r");
+    if(fp == NULL){
+        printf("Unable to search players...\n");
+        return;
+    }
+
+    while(getchar() != '\n');
+
+    printf("SEARCH PLAYER: ");
+    fgets(searchName, sizeof(searchName), stdin);
+    searchName[strcspn(searchName, "\n")] = 0; //do NOT include the newline
+
+    int found = 0;
+
+    while (fgets(line, sizeof(line), fp)) {
+        sscanf(line, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f",
+               player.name, &player.age, &player.season, player.team,
+               &player.jerseyNumber, &player.height, &player.weight,
+               &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg);
+
+        if (strcmp(player.name, searchName) == 0) {
+            printf("\nPlayer Found:\n");
+            printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
+                   player.name, player.age, player.season, player.team, player.jerseyNumber,
+                   player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
+            found = 1;
+            break;
+        }
+    }
+
+    if (!found) {
+        printf("Player not found.\n");
     }
 
     fclose(fp);
