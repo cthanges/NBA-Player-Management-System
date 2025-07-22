@@ -43,7 +43,7 @@ void addPlayer(){
 
     printf("TEAM: ");
     fgets(player.team, sizeof(player.team), stdin);
-    player.name[strcspn(player.name, "\n")] = 0; //Don't include newline character into entry
+    player.team[strcspn(player.team, "\n")] = 0; //Don't include newline character into entry
 
     printf("JERSEY #: ");
     scanf("%d", &player.jerseyNumber);
