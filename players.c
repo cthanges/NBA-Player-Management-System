@@ -91,7 +91,7 @@ void displayPlayers(){
                   player.name, &player.age, &player.season, player.team,
                   &player.jerseyNumber, &player.height, &player.weight,
                   &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
-        printf("NAME: %2s | AGE: %2d | SEASON: %2d | TEAM: %2s | #: %2d | HEIGHT: %2.2f | WEIGHT: %2.2f | PPG: %2.1f | RPG: %2.1f | APG: %2.1f | SPG: %2.1f | BPG: %2.1f\n",
+        printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
                player.name, player.age, player.season, player.team, player.jerseyNumber,
                player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
     }
