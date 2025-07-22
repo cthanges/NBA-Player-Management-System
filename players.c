@@ -89,7 +89,7 @@ void displayPlayers(){
 
     printf("\n---NBA PLAYERS---\n");
 
-    while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n",
+    while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n", //%49[^,] gets at most 49 characters and except the \n and comma added in players.txt
                   player.name, &player.age, &player.season, player.team,
                   &player.jerseyNumber, &player.height, &player.weight,
                   &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
@@ -157,6 +157,7 @@ void updatePlayer(){
     }
 
     while(getchar() != '\n');
+
     printf("NAME: "); //Search by name
     fgets(searchName, sizeof(searchName), stdin);
     searchName[strcspn(searchName, "\n")] = 0;
@@ -226,3 +227,5 @@ void updatePlayer(){
         printf("Player not found.\n");
     }
 }
+
+
