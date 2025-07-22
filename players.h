@@ -19,11 +19,11 @@ typedef struct{
 
 FILE* openPlayerFile(const char* mode); //Open the player file
 
-//Feature function declarations
-void addPlayer();
-void displayPlayers();
+//Feature function declarations (including CRUD)
+void addPlayer(); //CREATE
+void displayPlayers(); //READ
 void searchPlayer();
-void updatePlayer();
-void deletePlayer();
+void updatePlayer(); //UPDATE
+void deletePlayer(); //DELETE
 
 #endif
