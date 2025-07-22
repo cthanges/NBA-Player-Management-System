@@ -22,5 +22,6 @@ FILE* openPlayerFile(const char* mode); //Open the player file
 //Feature function declarations
 void addPlayer();
 void displayPlayers();
+void searchPlayer();
 
 #endif
