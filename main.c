@@ -7,9 +7,11 @@ int main() {
 
     do{
         printf("\n---NBA PLAYERS---\n");
-        printf("1. Add Player\n");
-        printf("2. View Players\n");
+        printf("1. Add Player\n"); //CREATE
+        printf("2. View Players\n"); //READ
         printf("3. Search Player\n");
+        printf("4. Update Player\n"); //UPDATE
+        printf("5. Delete Player\n"); //DELETE
         printf("0. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
@@ -23,6 +25,9 @@ int main() {
                 break;
             case 3:
                 searchPlayer();
+                break;
+            case 4:
+                updatePlayer();
                 break;
             case 0:
                 exit(0);
