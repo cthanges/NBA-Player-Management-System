@@ -143,6 +143,7 @@ void searchPlayer(){
     fclose(fp);
 }
 
+//Updating a player's information
 void updatePlayer(){
     char searchName[50];
     Player player;
@@ -228,4 +229,51 @@ void updatePlayer(){
     }
 }
 
+//Deleting a player from the .txt file
+void deletePlayer(){
+    char searchName[50];
+    Player player;
+    int found = 0;
 
+    FILE *fp = openPlayerFile("r");
+    FILE *temp = fopen("temp.txt", "w");
+
+    if(fp == NULL || temp == NULL){
+        printf("Unable to open file to delete player...\n");
+        return;
+    }
+
+    while(getchar() != '\n');
+
+    printf("NAME: ");
+    fgets(searchName, sizeof(searchName), stdin);
+    searchName[strcspn(searchName, "\n")] = 0;
+
+    while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n",
+                  player.name, &player.age, &player.season, player.team,
+                  &player.jerseyNumber, &player.height, &player.weight,
+                  &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
+
+        if(strcmp(player.name, searchName) == 0){
+            found = 1;
+            continue; //Skip the named player onto temp.txt; won't be included in the updated players.txt
+        }
+
+        fprintf(temp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
+                player.name, player.age, player.season, player.team, player.jerseyNumber,
+                player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
+    }
+
+    fclose(fp);
+    fclose(temp);
+
+    remove("players.txt");
+    rename("temp.txt", "players.txt");
+
+    if(found){
+        printf("Player deleted successfully!\n");
+    }
+    else{
+        printf("Player not found.\n");
+    }
+}
