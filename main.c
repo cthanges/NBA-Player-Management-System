@@ -12,6 +12,7 @@ int main() {
         printf("3. Search Player\n");
         printf("4. Update Player\n");
         printf("5. Delete Player\n");
+        printf("6. Sort Players\n");
         printf("0. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
@@ -31,6 +32,9 @@ int main() {
                 break;
             case 5:
                 deletePlayer();
+                break;
+            case 6:
+                sortPlayers();
                 break;
             case 0:
                 exit(0);
