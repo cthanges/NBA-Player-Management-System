@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "players.h"
 
-int main() {
+int main(){
     int choice;
 
     do{
@@ -12,7 +12,7 @@ int main() {
         printf("3. Search Player\n");
         printf("4. Update Player\n");
         printf("5. Delete Player\n");
-        printf("6. Sort Players\n");
+        printf("6. Sort Players\n"); //User gets prompted further in the sortPlayers() function on players.c
         printf("0. Exit\n");
         printf("Enter choice: ");
         scanf("%d", &choice);
