@@ -25,5 +25,6 @@ void displayPlayers(); //READ
 void searchPlayer();
 void updatePlayer(); //UPDATE
 void deletePlayer(); //DELETE
+void sortPlayers();
 
 #endif
