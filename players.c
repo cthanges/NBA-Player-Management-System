@@ -70,7 +70,7 @@ void addPlayer(){
     scanf("%f", &player.bpg);
 
     fprintf(fp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
-            player.name, player.age, player.season, player.team, player.jerseyNumber,
+            player.name, player.age, player.season, player.team, player.jerseyNumber, 
             player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
 
     fclose(fp);
@@ -90,12 +90,12 @@ void displayPlayers(){
     printf("\n---NBA PLAYERS---\n");
 
     while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n", //%49[^,] gets at most 49 characters and except the \n and comma added in players.txt
-                  player.name, &player.age, &player.season, player.team,
-                  &player.jerseyNumber, &player.height, &player.weight,
-                  &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
-        printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
-               player.name, player.age, player.season, player.team, player.jerseyNumber,
-               player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
+                 player.name, &player.age, &player.season, player.team,
+                 &player.jerseyNumber, &player.height, &player.weight,
+                 &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
+                    printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
+                           player.name, player.age, player.season, player.team, player.jerseyNumber, 
+                           player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
     }
 
     fclose(fp);
@@ -108,7 +108,7 @@ void searchPlayer(){
 
     FILE* fp = openPlayerFile("r");
     if(fp == NULL){
-        printf("Unable to search players...\n");
+        printf("Unable to search player...\n");
         return;
     }
 
@@ -164,9 +164,9 @@ void updatePlayer(){
     searchName[strcspn(searchName, "\n")] = 0;
 
     while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n",
-                  player.name, &player.age, &player.season, player.team,
-                  &player.jerseyNumber, &player.height, &player.weight,
-                  &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
+                 player.name, &player.age, &player.season, player.team,
+                 &player.jerseyNumber, &player.height, &player.weight,
+                 &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
 
         if(strcmp(player.name, searchName) == 0){
             printf("Player found! Enter new details:\n");
@@ -250,17 +250,16 @@ void deletePlayer(){
     searchName[strcspn(searchName, "\n")] = 0;
 
     while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n",
-                  player.name, &player.age, &player.season, player.team,
-                  &player.jerseyNumber, &player.height, &player.weight,
-                  &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
-
-        if(strcmp(player.name, searchName) == 0){
-            found = 1;
-            continue; //Skip the named player onto temp.txt; won't be included in the updated players.txt
-        }
+                 player.name, &player.age, &player.season, player.team, 
+                 &player.jerseyNumber, &player.height, &player.weight, 
+                 &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
+                    if(strcmp(player.name, searchName) == 0){
+                        found = 1;
+                        continue; //Skip the named player onto temp.txt; won't be included in the updated players.txt
+                    }
 
         fprintf(temp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
-                player.name, player.age, player.season, player.team, player.jerseyNumber,
+                player.name, player.age, player.season, player.team, player.jerseyNumber, 
                 player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
     }
 
@@ -276,4 +275,46 @@ void deletePlayer(){
     else{
         printf("Player not found.\n");
     }
+}
+
+void sortPlayers(){
+    FILE* fp = openPlayerFile("r");
+
+    if(fp == NULL){
+        printf("Unable to sort players...\n");
+        return;
+    }
+
+    Player players[450]; //Assuming that in each of the 30 NBA teams, there are max 15 players!
+    int count = 0;
+
+    while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n",
+                 players[count].name, &players[count].age, &players[count].season, 
+                 players[count].team, &players[count].jerseyNumber, 
+                 &players[count].height, &players[count].weight, 
+                 &players[count].ppg, &players[count].rpg, 
+                 &players[count].apg, &players[count].spg, 
+                 &players[count].bpg) == 12){
+                    count++;
+    }
+
+    fclose(fp);
+
+    int choice; //Local scope; won't affect choice variable of main program
+
+    //Prompt the user to sort players based on the selected option
+    printf("1. NAME\n");
+    printf("2. AGE\n");
+    printf("3. SEASON\n");
+    printf("4. TEAM\n");
+    printf("5. JERSEY #\n");
+    printf("6. HEIGHT\n");
+    printf("7. WEIGHT\n");
+    printf("8. POINTS PER GAME\n");
+    printf("9. REBOUNDS PER GAME\n");
+    printf("10. ASSISTS PER GAME\n");
+    printf("11. STEALS PER GAME\n");
+    printf("12. BLOCKS PER GAME\n");
+    printf("Select how these players should be sorted: ");
+    scanf("%d", &choice);
 }
