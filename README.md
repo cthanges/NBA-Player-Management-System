@@ -5,6 +5,7 @@ Currently, this system can:
 3. Search for any player that is in the system
 4. Update a recorded player's information in the system
 5. Delete/Remove a player from the system
+6. Sort players in the system by ANY of their listed attributes
 
 To execute this, type in:
 **gcc main.c players.c -o "EXECUTABLE NAME"**
