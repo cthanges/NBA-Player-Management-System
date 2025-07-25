@@ -41,6 +41,7 @@ int main(){
                 break;
             default:
                 printf("Invalid choice.\n");
+                break;
         }
 
     }while(choice != 0);
