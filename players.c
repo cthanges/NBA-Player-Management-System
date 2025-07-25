@@ -10,7 +10,7 @@ FILE* openPlayerFile(const char* mode){
 
     fp = fopen("players.txt", mode);
     if(fp == NULL){
-        printf("File could not be opened...\n");
+        printf("Unable to open file...\n");
         return NULL;
     }
 
@@ -24,7 +24,7 @@ void addPlayer(){
     FILE* fp = openPlayerFile("a");
 
     if(fp == NULL){
-        printf("Unable to add player...\n");
+        printf("Unable to open file...\n");
         return;
     }
 
@@ -49,25 +49,25 @@ void addPlayer(){
     printf("JERSEY #: ");
     scanf("%d", &player.jerseyNumber);
 
-    printf("HEIGHT: "); //Need to add metric conversion
+    printf("HEIGHT (m): ");
     scanf("%f", &player.height);
 
-    printf("WEIGHT: "); //Need to add metric conversion
+    printf("WEIGHT (kg): ");
     scanf("%f", &player.weight);
 
-    printf("POINTS PER GAME: ");
+    printf("POINTS PER GAME (PPG): ");
     scanf("%f", &player.ppg);
 
-    printf("REBOUNDS PER GAME: ");
+    printf("REBOUNDS PER GAME (RPG): ");
     scanf("%f", &player.rpg);
 
-    printf("ASSISTS PER GAME: ");
+    printf("ASSISTS PER GAME (APG): ");
     scanf("%f", &player.apg);
 
-    printf("STEALS PER GAME: ");
+    printf("STEALS PER GAME (SPG): ");
     scanf("%f", &player.spg);
 
-    printf("BLOCKS PER GAME: ");
+    printf("BLOCKS PER GAME (BPG): ");
     scanf("%f", &player.bpg);
 
     fprintf(fp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
