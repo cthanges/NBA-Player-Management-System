@@ -17,7 +17,7 @@ FILE* openPlayerFile(const char* mode){
     return fp;
 }
 
-//Adding a new player
+//Adding a new player to the player file
 void addPlayer(){
     Player player;
 
@@ -70,21 +70,22 @@ void addPlayer(){
     printf("BLOCKS PER GAME (BPG): ");
     scanf("%f", &player.bpg);
 
-    fprintf(fp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
-            player.name, player.age, player.season, player.team, player.jerseyNumber, 
-            player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
+    fprintf(fp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n", 
+            player.name, player.age, player.season, player.team, 
+            player.jerseyNumber, player.height, player.weight, player.ppg, 
+            player.rpg, player.apg, player.spg, player.bpg);
 
     fclose(fp);
 }
 
-//Displaying all players from the file
+//Displaying all players from the player file
 void displayPlayers(){
     Player player;
 
     FILE* fp = openPlayerFile("r");
 
     if(fp == NULL){
-        printf("Unable to display players...\n");
+        printf("Unable to open file...\n");
         return; 
     }
 
@@ -95,13 +96,15 @@ void displayPlayers(){
                  &player.jerseyNumber, &player.height, &player.weight,
                  &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
                     printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
-                           player.name, player.age, player.season, player.team, player.jerseyNumber, 
-                           player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
+                           player.name, player.age, player.season, player.team, 
+                           player.jerseyNumber, player.height, player.weight, player.ppg, 
+                           player.rpg, player.apg, player.spg, player.bpg);
     }
 
     fclose(fp);
 }
 
+//Searching a player from the player file
 void searchPlayer(){
     char searchName[50];
     char line[256]; //Length can vary (ex. Shai Gilgeous-Alexander has a lot of characters just for name)
@@ -109,7 +112,7 @@ void searchPlayer(){
 
     FILE* fp = openPlayerFile("r");
     if(fp == NULL){
-        printf("Unable to search player...\n");
+        printf("Unable to open file...\n");
         return;
     }
 
@@ -128,10 +131,11 @@ void searchPlayer(){
                &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg);
 
         if(strcmp(player.name, searchName) == 0){
-            printf("\nPlayer found:\n");
+            printf("\nPlayer found!\n");
             printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
-                   player.name, player.age, player.season, player.team, player.jerseyNumber,
-                   player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
+                   player.name, player.age, player.season, player.team, 
+                   player.jerseyNumber, player.height, player.weight, player.ppg, 
+                   player.rpg, player.apg, player.spg, player.bpg);
             found = 1;
             break;
         }
@@ -144,7 +148,7 @@ void searchPlayer(){
     fclose(fp);
 }
 
-//Updating a player's information
+//Updating a player's information from the player file
 void updatePlayer(){
     char searchName[50];
     Player player;
@@ -154,7 +158,7 @@ void updatePlayer(){
     FILE *temp = fopen("temp.txt", "w"); //To write new version/updated file
 
     if(fp == NULL || temp == NULL){
-        printf("Unable to update player...\n");
+        printf("Unable to open file...\n");
         return;
     }
 
@@ -187,33 +191,34 @@ void updatePlayer(){
             printf("JERSEY #: ");
             scanf("%d", &player.jerseyNumber);
 
-            printf("HEIGHT: ");
+            printf("HEIGHT (m): ");
             scanf("%f", &player.height);
 
-            printf("WEIGHT: ");
+            printf("WEIGHT (kg): ");
             scanf("%f", &player.weight);
 
-            printf("PPG: ");
+            printf("POINTS PER GAME (PPG): ");
             scanf("%f", &player.ppg);
 
-            printf("RPG: ");
+            printf("REBOUNDS PER GAME (RPG): ");
             scanf("%f", &player.rpg);
 
-            printf("APG: ");
+            printf("ASSISTS PER GAME (APG): ");
             scanf("%f", &player.apg);
 
-            printf("SPG: ");
+            printf("STEALS PER GAME (SPG): ");
             scanf("%f", &player.spg);
 
-            printf("BPG: ");
+            printf("BLOCKS PER GAME (BPG): ");
             scanf("%f", &player.bpg);
 
             found = 1;
         }
 
         fprintf(temp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
-                player.name, player.age, player.season, player.team, player.jerseyNumber,
-                player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
+                player.name, player.age, player.season, player.team, 
+                player.jerseyNumber, player.height, player.weight, player.ppg, 
+                player.rpg, player.apg, player.spg, player.bpg);
     }
 
     fclose(fp);
@@ -230,7 +235,7 @@ void updatePlayer(){
     }
 }
 
-//Deleting a player from the .txt file
+//Deleting a player from the player file
 void deletePlayer(){
     char searchName[50];
     Player player;
@@ -240,7 +245,7 @@ void deletePlayer(){
     FILE *temp = fopen("temp.txt", "w");
 
     if(fp == NULL || temp == NULL){
-        printf("Unable to open file to delete player...\n");
+        printf("Unable to open file...\n");
         return;
     }
 
@@ -260,8 +265,9 @@ void deletePlayer(){
                     }
 
         fprintf(temp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
-                player.name, player.age, player.season, player.team, player.jerseyNumber, 
-                player.height, player.weight, player.ppg, player.rpg, player.apg, player.spg, player.bpg);
+                player.name, player.age, player.season, player.team, 
+                player.jerseyNumber, player.height, player.weight, player.ppg, 
+                player.rpg, player.apg, player.spg, player.bpg);
     }
 
     fclose(fp);
@@ -327,11 +333,12 @@ int compareBPG(const void* a, const void* b) {
     return ((Player*)b)->bpg > ((Player*)a)->bpg ? 1 : -1;
 }
 
+//Sorting players (based on a specific attribute) from the player file
 void sortPlayers(){
     FILE* fp = openPlayerFile("r");
 
     if(fp == NULL){
-        printf("Unable to sort players...\n");
+        printf("Unable to open file...\n");
         return;
     }
 
@@ -341,12 +348,9 @@ void sortPlayers(){
     char saveOption;
 
     while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n",
-                 players[count].name, &players[count].age, &players[count].season, 
-                 players[count].team, &players[count].jerseyNumber, 
-                 &players[count].height, &players[count].weight, 
-                 &players[count].ppg, &players[count].rpg, 
-                 &players[count].apg, &players[count].spg, 
-                 &players[count].bpg) == 12){
+                 players[count].name, &players[count].age, &players[count].season, players[count].team, 
+                 &players[count].jerseyNumber, &players[count].height, &players[count].weight, &players[count].ppg, 
+                 &players[count].rpg, &players[count].apg, &players[count].spg, &players[count].bpg) == 12){
                     count++;
     }
 
@@ -411,7 +415,7 @@ void sortPlayers(){
     }
 
     //Print out the sorted players list
-    //printf("\n--- SORTED PLAYERS ---\n");
+    printf("\n--- SORTED PLAYERS ---\n");
     for(int i = 0; i < count; i++){
         printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
                players[i].name, players[i].age, players[i].season, players[i].team,
@@ -420,12 +424,13 @@ void sortPlayers(){
     }
 
     printf("Would you like to save this sorting to the file? (Enter Y for Yes and N for No) ");
-    scanf(" %c", &saveOption);
+    scanf(" %c", &saveOption); //Leaving space before %c, otherwise \n is considered from the sorting choice prompt
 
     if(toupper(saveOption) == 'Y'){
         fp = openPlayerFile("w");
+        
         if(fp == NULL){
-            printf("Unable to open file to save sorted player data...\n");
+            printf("Unable to open file...\n");
             return;
         }
         
