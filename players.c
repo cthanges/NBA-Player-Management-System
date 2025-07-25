@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "players.h"
+#include <ctype.h>
 
 //Opening the player file
 FILE* openPlayerFile(const char* mode){
@@ -277,6 +278,55 @@ void deletePlayer(){
     }
 }
 
+//Comparison functions for sorting (declared outside of SortPlayers function)
+int compareName(const void* a, const void* b){
+    return strcmp(((Player*)a)->name, ((Player*)b)->name);
+}
+
+int compareAge(const void* a, const void* b){
+    return ((Player*)b)->age - ((Player*)a)->age;
+}
+
+int compareSeason(const void* a, const void* b){
+    return ((Player*)b)->season - ((Player*)a)->season;
+}
+
+int compareTeam(const void* a, const void* b){
+    return strcmp(((Player*)a)->team, ((Player*)b)->team);
+}
+
+int compareJerseyNumber(const void*a, const void* b){
+    return((Player*)b)->jerseyNumber - ((Player*)a)->jerseyNumber;
+}
+
+int compareHeight(const void* a, const void* b){
+    return ((Player*)b)->height > ((Player*)a)->height ? 1 : -1;
+}
+
+int compareWeight(const void* a, const void* b){
+    return ((Player*)b)->weight > ((Player*)a)->weight ? 1 : -1;
+}
+
+int comparePPG(const void* a, const void* b){
+    return ((Player*)b)->ppg > ((Player*)a)->ppg ? 1 : -1;
+}
+
+int compareRPG(const void* a, const void* b) {
+    return ((Player*)b)->rpg > ((Player*)a)->rpg ? 1 : -1;
+}
+
+int compareAPG(const void* a, const void* b) {
+    return ((Player*)b)->apg > ((Player*)a)->apg ? 1 : -1;
+}
+
+int compareSPG(const void* a, const void* b) {
+    return ((Player*)b)->apg > ((Player*)a)->apg ? 1 : -1;
+}
+
+int compareBPG(const void* a, const void* b) {
+    return ((Player*)b)->bpg > ((Player*)a)->bpg ? 1 : -1;
+}
+
 void sortPlayers(){
     FILE* fp = openPlayerFile("r");
 
@@ -287,6 +337,8 @@ void sortPlayers(){
 
     Player players[450]; //Assuming that in each of the 30 NBA teams, there are max 15 players!
     int count = 0;
+    int choice; //Local scope; won't affect choice variable of main program
+    char saveOption;
 
     while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n",
                  players[count].name, &players[count].age, &players[count].season, 
@@ -299,8 +351,6 @@ void sortPlayers(){
     }
 
     fclose(fp);
-
-    int choice; //Local scope; won't affect choice variable of main program
 
     //Prompt the user to sort players based on the selected option
     printf("1. NAME\n");
@@ -317,4 +367,77 @@ void sortPlayers(){
     printf("12. BLOCKS PER GAME\n");
     printf("Select how these players should be sorted: ");
     scanf("%d", &choice);
+
+    switch(choice){
+        case 1:
+            qsort(players, count, sizeof(Player), compareName);
+            break;
+        case 2:
+            qsort(players, count, sizeof(Player), compareAge);
+            break;
+        case 3:
+            qsort(players, count, sizeof(Player), compareSeason);
+            break;
+        case 4:
+            qsort(players, count, sizeof(Player), compareTeam);
+            break;
+        case 5:
+            qsort(players, count, sizeof(Player), compareJerseyNumber);
+            break;
+        case 6:
+            qsort(players, count, sizeof(Player), compareHeight);
+            break;
+        case 7:
+            qsort(players, count, sizeof(Player), compareWeight);
+            break;
+        case 8:
+            qsort(players, count, sizeof(Player), comparePPG);
+            break;
+        case 9:
+            qsort(players, count, sizeof(Player), compareRPG);
+            break;
+        case 10:
+            qsort(players, count, sizeof(Player), compareAPG);
+            break;
+        case 11:
+            qsort(players, count, sizeof(Player), compareSPG);
+            break;
+        case 12:
+            qsort(players, count, sizeof(Player), compareBPG);
+            break;
+        default: 
+            printf("Invalid choice.\n");
+            break;
+    }
+
+    //Print out the sorted players list
+    //printf("\n--- SORTED PLAYERS ---\n");
+    for(int i = 0; i < count; i++){
+        printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
+               players[i].name, players[i].age, players[i].season, players[i].team,
+               players[i].jerseyNumber, players[i].height, players[i].weight,
+               players[i].ppg, players[i].rpg, players[i].apg, players[i].spg, players[i].bpg);
+    }
+
+    printf("Would you like to save this sorting to the file? (Enter Y for Yes and N for No) ");
+    scanf(" %c", &saveOption);
+
+    if(toupper(saveOption) == 'Y'){
+        fp = openPlayerFile("w");
+        if(fp == NULL){
+            printf("Unable to open file to save sorted player data...\n");
+            return;
+        }
+        
+        for(int i = 0; i < count; i++){
+            fprintf(fp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
+                    players[i].name, players[i].age, players[i].season, players[i].team,
+                    players[i].jerseyNumber, players[i].height, players[i].weight,
+                    players[i].ppg, players[i].rpg, players[i].apg, players[i].spg, players[i].bpg);
+                }
+                
+        fclose(fp);
+        
+        printf("\nSorting has been saved!\n"); //Users can select "View Players" option to verify
+    }
 }
