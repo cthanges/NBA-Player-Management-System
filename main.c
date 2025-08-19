@@ -6,7 +6,7 @@ int main(){
     int choice;
 
     do{
-        printf("\n---NBA PLAYERS---\n");
+        printf("\n---NBA Player Management System---\n");
         printf("1. Add Player\n");
         printf("2. View Players\n");
         printf("3. Search Player\n");
