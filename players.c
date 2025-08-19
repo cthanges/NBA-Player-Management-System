@@ -49,10 +49,10 @@ void addPlayer(){
     printf("JERSEY #: ");
     scanf("%d", &player.jerseyNumber);
 
-    printf("HEIGHT (m): ");
+    printf("HEIGHT (m): "); //Enter height in meters
     scanf("%f", &player.height);
 
-    printf("WEIGHT (kg): ");
+    printf("WEIGHT (kg): "); //Enter weight in kilograms
     scanf("%f", &player.weight);
 
     printf("POINTS PER GAME (PPG): ");
@@ -71,9 +71,9 @@ void addPlayer(){
     scanf("%f", &player.bpg);
 
     fprintf(fp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n", 
-            player.name, player.age, player.season, player.team, 
-            player.jerseyNumber, player.height, player.weight, player.ppg, 
-            player.rpg, player.apg, player.spg, player.bpg);
+            player.name, player.age, player.season, player.team, player.jerseyNumber, 
+            player.height, player.weight, 
+            player.ppg, player.rpg, player.apg, player.spg, player.bpg);
 
     fclose(fp);
 }
@@ -92,13 +92,13 @@ void displayPlayers(){
     printf("\n---NBA PLAYERS---\n");
 
     while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n", //%49[^,] gets at most 49 characters and except the \n and comma added in players.txt
-                 player.name, &player.age, &player.season, player.team,
-                 &player.jerseyNumber, &player.height, &player.weight,
+                 player.name, &player.age, &player.season, player.team, &player.jerseyNumber, 
+                 &player.height, &player.weight, 
                  &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
                     printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
-                           player.name, player.age, player.season, player.team, 
-                           player.jerseyNumber, player.height, player.weight, player.ppg, 
-                           player.rpg, player.apg, player.spg, player.bpg);
+                           player.name, player.age, player.season, player.team, player.jerseyNumber, 
+                           player.height, player.weight, 
+                           player.ppg, player.rpg, player.apg, player.spg, player.bpg);
     }
 
     fclose(fp);
@@ -126,16 +126,16 @@ void searchPlayer(){
 
     while(fgets(line, sizeof(line), fp)){
         sscanf(line, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f",
-               player.name, &player.age, &player.season, player.team,
-               &player.jerseyNumber, &player.height, &player.weight,
+               player.name, &player.age, &player.season, player.team, &player.jerseyNumber, 
+               &player.height, &player.weight, 
                &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg);
 
         if(strcmp(player.name, searchName) == 0){
             printf("\nPlayer found!\n");
             printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
-                   player.name, player.age, player.season, player.team, 
-                   player.jerseyNumber, player.height, player.weight, player.ppg, 
-                   player.rpg, player.apg, player.spg, player.bpg);
+                   player.name, player.age, player.season, player.team, player.jerseyNumber, 
+                   player.height, player.weight, 
+                   player.ppg, player.rpg, player.apg, player.spg, player.bpg);
             found = 1;
             break;
         }
@@ -169,8 +169,8 @@ void updatePlayer(){
     searchName[strcspn(searchName, "\n")] = 0;
 
     while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n",
-                 player.name, &player.age, &player.season, player.team,
-                 &player.jerseyNumber, &player.height, &player.weight,
+                 player.name, &player.age, &player.season, player.team, &player.jerseyNumber, 
+                 &player.height, &player.weight,
                  &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
 
         if(strcmp(player.name, searchName) == 0){
@@ -191,10 +191,10 @@ void updatePlayer(){
             printf("JERSEY #: ");
             scanf("%d", &player.jerseyNumber);
 
-            printf("HEIGHT (m): ");
+            printf("HEIGHT (m): "); //Enter height in meters
             scanf("%f", &player.height);
 
-            printf("WEIGHT (kg): ");
+            printf("WEIGHT (kg): "); //Enter weight in kilograms
             scanf("%f", &player.weight);
 
             printf("POINTS PER GAME (PPG): ");
@@ -216,9 +216,9 @@ void updatePlayer(){
         }
 
         fprintf(temp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
-                player.name, player.age, player.season, player.team, 
-                player.jerseyNumber, player.height, player.weight, player.ppg, 
-                player.rpg, player.apg, player.spg, player.bpg);
+                player.name, player.age, player.season, player.team, player.jerseyNumber, 
+                player.height, player.weight, 
+                player.ppg, player.rpg, player.apg, player.spg, player.bpg);
     }
 
     fclose(fp);
@@ -256,8 +256,8 @@ void deletePlayer(){
     searchName[strcspn(searchName, "\n")] = 0;
 
     while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n",
-                 player.name, &player.age, &player.season, player.team, 
-                 &player.jerseyNumber, &player.height, &player.weight, 
+                 player.name, &player.age, &player.season, player.team, &player.jerseyNumber, 
+                 &player.height, &player.weight, 
                  &player.ppg, &player.rpg, &player.apg, &player.spg, &player.bpg) == 12){
                     if(strcmp(player.name, searchName) == 0){
                         found = 1;
@@ -265,9 +265,9 @@ void deletePlayer(){
                     }
 
         fprintf(temp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
-                player.name, player.age, player.season, player.team, 
-                player.jerseyNumber, player.height, player.weight, player.ppg, 
-                player.rpg, player.apg, player.spg, player.bpg);
+                player.name, player.age, player.season, player.team, player.jerseyNumber, 
+                player.height, player.weight, 
+                player.ppg, player.rpg, player.apg, player.spg, player.bpg);
     }
 
     fclose(fp);
@@ -348,9 +348,9 @@ void sortPlayers(){
     char saveOption;
 
     while(fscanf(fp, "%49[^,],%d,%d,%49[^,],%d,%f,%f,%f,%f,%f,%f,%f\n",
-                 players[count].name, &players[count].age, &players[count].season, players[count].team, 
-                 &players[count].jerseyNumber, &players[count].height, &players[count].weight, &players[count].ppg, 
-                 &players[count].rpg, &players[count].apg, &players[count].spg, &players[count].bpg) == 12){
+                 players[count].name, &players[count].age, &players[count].season, players[count].team, &players[count].jerseyNumber, 
+                 &players[count].height, &players[count].weight, 
+                 &players[count].ppg, &players[count].rpg, &players[count].apg, &players[count].spg, &players[count].bpg) == 12){
                     count++;
     }
 
@@ -418,8 +418,8 @@ void sortPlayers(){
     printf("\n--- SORTED PLAYERS ---\n");
     for(int i = 0; i < count; i++){
         printf("NAME: %s | AGE: %d | SEASON: %d | TEAM: %s | #: %d | HEIGHT: %.2f | WEIGHT: %.2f | PPG: %.1f | RPG: %.1f | APG: %.1f | SPG: %.1f | BPG: %.1f\n",
-               players[i].name, players[i].age, players[i].season, players[i].team,
-               players[i].jerseyNumber, players[i].height, players[i].weight,
+               players[i].name, players[i].age, players[i].season, players[i].team, players[i].jerseyNumber, 
+               players[i].height, players[i].weight, 
                players[i].ppg, players[i].rpg, players[i].apg, players[i].spg, players[i].bpg);
     }
 
@@ -436,8 +436,8 @@ void sortPlayers(){
         
         for(int i = 0; i < count; i++){
             fprintf(fp, "%s,%d,%d,%s,%d,%.2f,%.2f,%.1f,%.1f,%.1f,%.1f,%.1f\n",
-                    players[i].name, players[i].age, players[i].season, players[i].team,
-                    players[i].jerseyNumber, players[i].height, players[i].weight,
+                    players[i].name, players[i].age, players[i].season, players[i].team, players[i].jerseyNumber, 
+                    players[i].height, players[i].weight, 
                     players[i].ppg, players[i].rpg, players[i].apg, players[i].spg, players[i].bpg);
                 }
                 
