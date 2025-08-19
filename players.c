@@ -326,7 +326,7 @@ int compareAPG(const void* a, const void* b) {
 }
 
 int compareSPG(const void* a, const void* b) {
-    return ((Player*)b)->apg > ((Player*)a)->apg ? 1 : -1;
+    return ((Player*)b)->spg > ((Player*)a)->spg ? 1 : -1;
 }
 
 int compareBPG(const void* a, const void* b) {
