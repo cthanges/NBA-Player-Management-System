@@ -301,7 +301,7 @@ int compareTeam(const void* a, const void* b){
     return strcmp(((Player*)a)->team, ((Player*)b)->team);
 }
 
-int compareJerseyNumber(const void*a, const void* b){
+int compareJerseyNumber(const void* a, const void* b){
     return((Player*)b)->jerseyNumber - ((Player*)a)->jerseyNumber;
 }
 
